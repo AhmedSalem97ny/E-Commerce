@@ -177,7 +177,7 @@ export default function Signup() {
             </div>
           </div>
           {/*Right Side*/}
-          <div className="p-10 space-y-8 shadow-xl bg-white rounded=xl">
+          <div className="p-10 space-y-8 shadow-xl bg-white rounded-xl">
             <div className="text-center">
               <h2 className="text-3xl font-semibold">Create Your Account</h2>
               <p className="mt-1">Start your fresh journey with us today</p>
