@@ -166,9 +166,7 @@ setinCorrectCredentialsMsg("")
 
           {/* Divider */}
           <div className="w-full h-0.5 relative bg-gray-300/40 my-6">
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 bg-white text-gray-500 text-sm">
-              OR CONTINUE WITH EMAIL
-            </span>
+            
           </div>
 
           <form className="" onSubmit={formik.handleSubmit} action="">
