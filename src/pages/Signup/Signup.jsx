@@ -85,7 +85,7 @@ export default function Signup() {
       <PageMetaData
         title="Signup - FreshCart"/>
       <main className="py-12">
-        <div className="container grid lg:grid-cols-2 lg:gap-12 ">
+        <div className="container px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 lg:gap-12">
           {/*Left Side*/}
           <div className="space-y-8 py-10">
             <div className="welcome">
@@ -177,7 +177,7 @@ export default function Signup() {
             </div>
           </div>
           {/*Right Side*/}
-          <div className="p-10 space-y-8 shadow-xl bg-white rounded-xl">
+          <div className="w-full max-w-lg mx-auto p-6 sm:p-8 space-y-8 shadow-xl bg-white rounded-xl">
             <div className="text-center">
               <h2 className="text-3xl font-semibold">Create Your Account</h2>
               <p className="mt-1">Start your fresh journey with us today</p>
