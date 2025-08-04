@@ -22,13 +22,16 @@ import { sendDataToLogin } from "../../services/auth-service";
 import { Authcontext } from "../../context/Auth.context";
 import PageMetaData from "../../components/PageMetaData/PageMetaData";
 
+import { CartContext } from "../../context/Cart.context"; 
+
+
 export default function Login() {
 
   const location = useLocation();
   const from = location?.state?.from || "/"
 
   const {setToken}= useContext(Authcontext)
-
+const { handleFetchCartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [inCorrectCredentialsMsg, setinCorrectCredentialsMsg] = useState("");
@@ -54,32 +57,30 @@ export default function Login() {
   });
 
   async function handleLogin(values) {
-    try {
-      
-    const response= await  sendDataToLogin(values)
-      if (response.success) {
+  try {
+    const response = await sendDataToLogin(values);
+    if (response.success) {
+      toast.success("Welcome back");
 
+      setToken(response.data.token);
 
-        toast.success("Welcome back");
-        
-         setToken(response.data.token)
-
-         if (values.rememberMe){
-          localStorage.setItem("token", response.data.token)
-         }else{
-          sessionStorage.setItem("token", response.data.token)
-         }
-
-
-
-        setTimeout(() => {
-          navigate(from);
-        }, 3000);
+      if (values.rememberMe) {
+        localStorage.setItem("token", response.data.token);
+      } else {
+        sessionStorage.setItem("token", response.data.token);
       }
-    } catch (error) {
-      setinCorrectCredentialsMsg(error.message);
+
+      await handleFetchCartItems();
+
+      setTimeout(() => {
+        navigate(from); 
+      }, 3000);
     }
+  } catch (error) {
+    setinCorrectCredentialsMsg(error.message);
   }
+}
+
 
   const formik = useFormik({
     initialValues: {
@@ -166,7 +167,7 @@ setinCorrectCredentialsMsg("")
 
           {/* Divider */}
           <div className="w-full h-0.5 relative bg-gray-300/40 my-6">
-            
+           
           </div>
 
           <form className="" onSubmit={formik.handleSubmit} action="">
