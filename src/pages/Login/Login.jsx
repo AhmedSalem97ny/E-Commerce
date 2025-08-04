@@ -31,7 +31,8 @@ export default function Login() {
   const from = location?.state?.from || "/"
 
   const {setToken}= useContext(Authcontext)
-const { handleFetchCartItems } = useContext(CartContext);
+const { refreshCart } = useContext(CartContext);
+
   const navigate = useNavigate();
 
   const [inCorrectCredentialsMsg, setinCorrectCredentialsMsg] = useState("");
@@ -70,7 +71,8 @@ const { handleFetchCartItems } = useContext(CartContext);
         sessionStorage.setItem("token", response.data.token);
       }
 
-      await handleFetchCartItems();
+      await refreshCart();
+
 
       setTimeout(() => {
         navigate(from); 
@@ -294,3 +296,5 @@ setinCorrectCredentialsMsg("")
     </main>
   </>);
 }
+
+
