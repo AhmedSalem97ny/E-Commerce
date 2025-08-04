@@ -13,38 +13,35 @@ export default function CartProvider({ children }) {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
 
-  async function handleAddingProductToCart({ id }) {
-    try {
-      setIsLoading(true);
-      const response = await addProductToCart({ id });
-      if (response.success) {
-        setIsLoading(false);
-
-        toast.success(response.data.message);
-        await handleFetchCartItems();
-        setCartInfo(response.data);
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
-      setError(error);
+ async function handleAddingProductToCart({ id }) {
+  try {
+    const response = await addProductToCart({ id });
+    if (response.success) {
+      toast.success(response.data.message);
+      await handleFetchCartItems(); // This already sets loading
     }
+  } catch (error) {
+    setIsError(true);
+    setError(error);
   }
+}
+
 
   async function handleFetchCartItems() {
-    try {
-      setIsLoading(true);
-      const response = await getCartItems();
-      if (response.success) {
-        setIsLoading(false);
-        setCartInfo(response.data);
-      }
-    } catch (error) {
-      setIsLoading(false);
-      setIsError(true);
-      setError(error);
+  try {
+    setIsLoading(true);
+    const response = await getCartItems();
+    if (response.success) {
+      setCartInfo(response.data);
     }
+  } catch (error) {
+    setIsError(true);
+    setError(error);
+  } finally {
+    setIsLoading(false);
   }
+}
+
 
   async function handleRemoveFromCart({id}) {
     try {
@@ -98,16 +95,19 @@ async function handleupdateProductQuantity({id, count}) {
       value={{
         cartInfo,
         setCartInfo,
-       refreshCart: handleFetchCartItems,
+       handleFetchCartItems,
         isError,
         isLoading,
         error,
         handleAddingProductToCart,
         handleRemoveFromCart,
         handleupdateProductQuantity
+       
       }}
     >
       {children}
     </CartContext.Provider>
   );
 }
+
+
