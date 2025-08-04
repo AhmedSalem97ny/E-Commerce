@@ -17,14 +17,15 @@ import CartSkeleton from "../../components/skeleton/CartSkeleton";
 import PageMetaData from "../../components/PageMetaData/PageMetaData";
 
 const CartPage = () => {
-  const { cartInfo, isLoading } = useContext(CartContext);
+ const { cartInfo, isLoading } = useContext(CartContext);
 
-  if (isLoading) {
-    return <CartSkeleton />;
-  }
+if (isLoading || !cartInfo || !cartInfo?.data?.products) {
+  return <CartSkeleton />;
+}
 
-  const { numOfCartItems, data } = cartInfo;
-  const { products, totalCartPrice } = data;
+const { numOfCartItems, data } = cartInfo;
+const { products, totalCartPrice } = data;
+
 
   return (
     <>
