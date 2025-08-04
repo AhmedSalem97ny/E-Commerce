@@ -1,4 +1,4 @@
-import {
+ import {
   faAddressCard,
   faEnvelope,
   faHeart,
@@ -359,6 +359,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                   <li>
                     <NavLink
                       to={`wishlist`}
+                      onClick={toggleMenu}
                       className={({ isActive }) => {
                         return `${
                           isActive ? "text-primary-600 bg-primary-100" : ""
@@ -372,6 +373,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                   <li>
                     <NavLink
                       to={`cart`}
+                      onClick={toggleMenu}
                       className={({ isActive }) => {
                         return `${
                           isActive ? "text-primary-600 bg-primary-100" : ""
@@ -384,7 +386,11 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                           icon={faCartShopping}
                         />
                         <span className="absolute size-5 flex justify-center items-center rounded-full bg-primary-600 text-white text-sm left-3 top-0 -translate-y-1/2">
-                          3
+                            {isLoading ? (
+                        <FontAwesomeIcon icon={faSpinner} spin />
+                      ) : (
+                        cartInfo?.numOfCartItems ?? 0
+                      )}
                         </span>
                       </div>
                       <span className="text-sm">Cart</span>
@@ -393,6 +399,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                   <li>
                     <NavLink
                       to={`account`}
+                      onClick={toggleMenu}
                       className={({ isActive }) => {
                         return `${
                           isActive ? "text-primary-600 bg-primary-100" : ""
@@ -414,6 +421,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                       <li>
                         <NavLink
                           to={`signup`}
+                          onClick={toggleMenu}
                           className={({ isActive }) => {
                             return `${
                               isActive ? "text-primary-600 bg-primary-100" : ""
@@ -430,6 +438,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                       <li>
                         <NavLink
                           to={`login`}
+                          onClick={toggleMenu}
                           className={({ isActive }) => {
                             return `${
                               isActive ? "text-primary-600 bg-primary-100" : ""
@@ -447,6 +456,7 @@ const { categories, isLoading: categoriesLoading } = useCategories();
                   ) : (
                     <li
                       onClick={logOut}
+                      
                       className="cursor-pointer  flex  gap-2 transition-colors duration-200 px-2 py-3"
                     >
                       <FontAwesomeIcon
@@ -465,3 +475,4 @@ const { categories, isLoading: categoriesLoading } = useCategories();
     </>
   );
 }
+
