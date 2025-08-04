@@ -18,16 +18,19 @@ function Heart({ product }) {
     console.log("Heart rendered for", product.id, "; wishlisted:", isWishlisted);
   }
 
-  function handleClick(e) {
-    e.stopPropagation();
-    if (isWishlisted) {
-      removeFromWishlist(product.id);
-      toast.info("Product removed from wishlist");
-    } else {
-      addToWishlist(product);
+ function handleClick(e) {
+  e.stopPropagation();
+  if (isWishlisted) {
+    removeFromWishlist(product.id);
+    toast.info("Product removed from wishlist");
+  } else {
+    const success = addToWishlist(product);
+    if (success) {
       toast.success("Product added to wishlist");
     }
   }
+}
+
 
   return (
     <button onClick={handleClick} aria-label="Toggle wishlist">
@@ -42,3 +45,4 @@ function Heart({ product }) {
 }
 
 export default React.memo(Heart);
+
