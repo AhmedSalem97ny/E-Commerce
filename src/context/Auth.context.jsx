@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { verifyToken } from "../services/auth-service";
+
 
 export const Authcontext = createContext(null);
 
@@ -9,25 +9,7 @@ export default function Authprovider({ children }) {
   );
 
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-const[userInfo, setUserInfo] = useState(null);
-
-  useEffect(() => {
-  const checkAuthentication= async ()=>{
-     try {
-    const response= await verifyToken();
-    if(response.success){
-        setIsAuthenticated(true);
-        setUserInfo(response.data.decoded);
-    }
-    
-   } catch (error) {
-    console.log(error);
-    
-   }
-  }
- checkAuthentication()
-  },[])
+ 
 
   function logOut() {
     setToken(null);
@@ -36,9 +18,10 @@ const[userInfo, setUserInfo] = useState(null);
   }
 
   return (
-    <Authcontext.Provider value={{ token, setToken, logOut, isAuthenticated, userInfo }}>
+    <Authcontext.Provider value={{ token, setToken, logOut}}>
       {children}
     </Authcontext.Provider>
   );
 }
+
 
