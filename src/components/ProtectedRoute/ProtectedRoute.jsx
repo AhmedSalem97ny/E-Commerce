@@ -4,11 +4,12 @@ import { Navigate, useLocation } from "react-router";
 
 export default function ProtectedRoute({children}){
     const location= useLocation();
-    const {isAuthenticated}=useContext(Authcontext)
+    const {token}=useContext(Authcontext)
 
-    if(!isAuthenticated ){
+    if(token ===null){
         return <Navigate to="/login" state={{from: location.pathname}} />
     }else {
          return children
     }
 }
+
