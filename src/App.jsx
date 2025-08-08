@@ -33,6 +33,7 @@ import VerifyResetCode from "./pages/VerifyResetCode/VerifyResetCode";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import FeaturedProductsPage from "./pages/FeaturedProductsPage/FeaturedProductsPage";
 import Offers from "./pages/Offers/Offers";
+import AccountLayout from "./components/AccountLayout/AccountLayout";
 function App() {
   const router = createBrowserRouter([
     {
@@ -60,6 +61,35 @@ function App() {
           path: "Brands",
           element: <Brands />,
         },
+           
+        {
+          path:"account",
+          element:
+          <ProtectedRoute>
+            <AccountLayout/>
+            </ProtectedRoute>
+          , 
+          children: [
+{
+          path: "Orders",
+          element: (
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "wishlist",
+          element: (
+            <ProtectedRoute>
+              <Wishlist />
+            </ProtectedRoute>
+          ),
+        },
+          ]
+        },
+
+
         {
           path: "Offers",
           element: <Offers />,
@@ -97,14 +127,7 @@ function App() {
           path: "*",
           element: <Notfound />,
         },
-        {
-          path: "Orders",
-          element: (
-            <ProtectedRoute>
-              <Orders />
-            </ProtectedRoute>
-          ),
-        },
+        
         {
           path: "product/:id",
           element: <ProductDetails />,
@@ -187,3 +210,4 @@ function App() {
 }
 
 export default App;
+
